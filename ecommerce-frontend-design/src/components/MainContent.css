@@ -1,0 +1,126 @@
+.main {
+  display: flex;
+  gap: 16px;
+  padding: 24px 32px;
+}
+
+.main__sidebar {
+  flex: 1;
+  background: #f9f9f9;
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.main__sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.main__sidebar li {
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.main__sidebar li.active {
+  background: #e6f0ff;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* ---- BANNER SECTION ---- */
+.main__banner {
+  flex: 3;
+  /* Replace background color with background image */
+  background: url('../assets/hero.png') right center/cover no-repeat;
+  /* Adjust the path if needed! */
+  padding: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 10px;
+  min-height: 180px;
+  position: relative;
+  /* Optional: add an overlay for text readability */
+}
+.main__banner::before {
+  /* Optional overlay for readability (comment out if not needed) */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(200, 244, 241, 0.25); /* subtle teal overlay */
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.banner__text {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  padding-left: 20px;
+  max-width: 400px;
+}
+
+.banner__text p {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.banner__text h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.banner__text button {
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.main__banner img {
+  /* Remove or comment out this rule, no <img> should be inside banner now */
+  display: none;
+}
+
+/* ---- RIGHT SIDEBAR ---- */
+.main__right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  padding: 16px;
+  border-radius: 6px;
+  color: white;
+}
+
+.card.blue {
+  background: #1976d2;
+}
+
+.card.orange {
+  background: #fb8c00;
+}
+
+.card.teal {
+  background: #26a69a;
+}
+
+.card button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: white;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
