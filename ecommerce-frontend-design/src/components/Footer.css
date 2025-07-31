@@ -1,0 +1,249 @@
+.footer-main {
+  background: #f7f8fa;
+  border-top: 1px solid #edf1f2;
+  width: 100%;
+  margin-top: 34px;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.footer-newsletter {
+  background: #f1f2f4;
+  padding: 28px 0 22px 0;
+  text-align: center;
+}
+
+.newsletter-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 7px;
+}
+
+.newsletter-desc {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 17px;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.newsletter-input {
+  flex: 1;
+  height: 36px;
+  font-size: 14px;
+  border: 1px solid #e4eaf1;
+  border-radius: 7px;
+  background: #fff;
+  padding: 0 12px;
+  outline: none;
+  transition: border 0.18s;
+  min-width: 0;
+}
+
+.newsletter-input:focus {
+  border-color: #198cff;
+}
+
+.newsletter-btn {
+  height: 36px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #198cff;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.newsletter-btn:hover {
+  background: #157de6;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 30px 0 14px 0;
+  background: #fff;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.footer-brand {
+  display: flex;
+  gap: 16px;
+  min-width: 230px;
+}
+
+.footer-brand-icon {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.footer-brand-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #198cff;
+  margin-bottom: 2px;
+}
+
+.footer-brand-desc {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.footer-social {
+  display: flex;
+  gap: 9px;
+}
+
+.footer-social a {
+  color: #a8b4be;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.footer-social a:hover {
+  color: #198cff;
+}
+
+/* Icon placeholders, replace with actual icons or font icons */
+.icon-facebook:before { content: "🌐"; }
+.icon-twitter:before { content: "🐦"; }
+.icon-linkedin:before { content: "💼"; }
+.icon-youtube:before { content: "▶️"; }
+.icon-instagram:before { content: "📸"; }
+
+.footer-links {
+  display: flex;
+  gap: 40px;
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 130px;
+}
+
+.footer-col-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 7px;
+}
+
+.footer-col a {
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+  margin-bottom: 2px;
+  transition: color 0.18s;
+}
+.footer-col a:hover {
+  color: #198cff;
+}
+
+/* App images */
+.app-col .footer-app-img {
+  width: 120px;
+  height: 36px;
+  object-fit: contain;
+  margin-bottom: 7px;
+  display: block;
+}
+
+/* Footer bottom row */
+.footer-bottom {
+  background: #f7f8fa;
+  border-top: 1px solid #edf1f2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #888;
+  padding: 13px 0 8px 0;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer-lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #222;
+}
+
+.footer-lang-flag {
+  width: 18px;
+  height: 13px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.footer-lang-arrow {
+  font-size: 14px;
+  color: #aaa;
+  margin-left: 2px;
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 22px;
+    padding: 22px 0 10px 0;
+    align-items: flex-start;
+  }
+  .footer-links {
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .footer-col {
+    min-width: 120px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 9px;
+    padding: 12px 0 5px 0;
+  }
+}
+@media (max-width: 700px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 16px;
+    padding: 14px 0 7px 0;
+  }
+  .footer-links {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer-col {
+    min-width: 100px;
+  }
+  .footer-brand {
+    min-width: 150px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    padding: 8px 0 2px 0;
+  }
+}

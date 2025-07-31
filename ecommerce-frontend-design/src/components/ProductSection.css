@@ -126,28 +126,38 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 30px 18px 30px 24px;
+  padding: 0;
   border-radius: 12px;
   min-height: 240px;
   box-sizing: border-box;
   margin-right: 0px;
   margin-bottom: 0;
-  background: #fcf8f4;
-  gap: 18px;
+  background: none;
 }
 
-.category-card.gadgets {
-  background: #eaf6fa;
-}
-
+/* Background image logic for category left card */
 .category-bg-img {
-  width: 120px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  margin-bottom: 10px;
+  width: 260px;
+  height: 160px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* Overlay for text and button inside background image */
+.category-content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .category-title {
@@ -155,25 +165,28 @@
   font-weight: 700;
   color: #222;
   margin-bottom: 12px;
+  background: none;
   display: block;
+  z-index: 2;
 }
 
 .category-btn {
-  background: #ffd700;
+  background: #fff;
   color: #222;
   border: none;
   border-radius: 6px;
-  padding: 10px 22px;
+  padding: 8px 18px;
   font-weight: 700;
-  font-size: 16px;
-  margin-top: 10px;
+  font-size: 15px;
+  margin-top: 2px;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.09);
   transition: background 0.2s;
+  z-index: 2;
 }
 
 .category-btn:hover {
-  background: #ffc800;
+  background: #ffd700;
 }
 
 /* --- Product Grid Right Side --- */
@@ -245,7 +258,14 @@
   }
   .category-card {
     min-width: 180px;
-    padding: 20px 10px;
+    padding: 0;
+  }
+  .category-bg-img {
+    width: 180px;
+    height: 120px;
+  }
+  .category-content-overlay {
+    padding: 10px 0 0 10px;
   }
 }
 
@@ -271,7 +291,15 @@
     min-width: 0;
     width: 100%;
     align-items: center;
-    padding: 20px 0;
+    padding: 0;
+  }
+  .category-bg-img {
+    width: 100%;
+    height: 120px;
+    border-radius: 12px 12px 0 0;
+  }
+  .category-content-overlay {
+    padding: 10px 0 0 10px;
   }
   .category-products {
     border-radius: 0 0 12px 12px;
