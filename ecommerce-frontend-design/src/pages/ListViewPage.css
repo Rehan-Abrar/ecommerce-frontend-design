@@ -1,3 +1,108 @@
+.listview-sidebar {
+  width: 230px;
+  min-width: 230px;
+  padding: 0 0 0 16px;
+}
+/* Sidebar Sections */
+.filter-section {
+  margin-bottom: 0;
+}
+.filter-heading {
+  width: 230px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  opacity: 1;
+  padding-left: 0;
+  margin-bottom: 0;
+  background: transparent;
+}
+.filter-heading.bordered {
+  border-top: 1px solid #E4EAF1;
+}
+.filter-list {
+  padding: 0;
+  margin: 0;
+}
+.filter-list-item {
+  width: 230px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #444;
+  opacity: 1;
+  background: transparent;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.filter-list-item.active {
+  color: #198cff;
+  font-weight: 600;
+}
+.filter-list-item.seeall {
+  color: #198cff;
+  font-size: 13px;
+}
+/* Price Range */
+.price-range input[type="range"] {
+  width: 100%;
+  margin: 8px 0 5px 0;
+}
+.price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.price-inputs input {
+  width: 50px;
+  height: 22px;
+  font-size: 13px;
+  border: 1px solid #e4eaf1;
+  border-radius: 5px;
+  padding: 2px 6px;
+  background: #f8fafc;
+}
+.price-apply {
+  background: #198cff;
+  color: #fff;
+  font-size: 13px;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 16px;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+/* Condition & Ratings */
+.condition-list .filter-list-item,
+.ratings-list .filter-list-item {
+  height: 36px;
+}
+.condition-list input[type="radio"] {
+  accent-color: #198cff;
+  margin-right: 7px;
+}
+.ratings-list .star-label {
+  margin-left: 7px;
+  display: inline-block;
+  font-size: 0;
+}
+.star {
+  font-size: 19px;
+  margin-right: 1px;
+  vertical-align: middle;
+}
+.star.orange {
+  color: #ffa726;
+}
+.star.gray {
+  color: #e4eaf1;
+}
+/* The rest of your page styles... */
 .listview-wrapper {
   background: #f7f8fa;
   min-height: 100vh;
@@ -97,7 +202,7 @@
 .listview-topbar {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 12px;
   margin-bottom: 19px;
   background: #fff;
   border-radius: 9px;
@@ -119,25 +224,37 @@
 .topbar-view {
   display: flex;
   gap: 2px;
-  margin-left: auto;
+  margin-left: 8px;
+  align-items: center;
 }
 .view-btn {
   background: #edf1f6;
-  border: none;
+  border: 1px solid #e4eaf1;
   border-radius: 6px;
-  padding: 5px 7px;
+  padding: 4px 8px;
   font-size: 19px;
   cursor: pointer;
   color: #777;
-  transition: background 0.18s;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .view-btn.active,
 .view-btn:hover {
   background: #198cff22;
   color: #198cff;
+  border-color: #198cff;
 }
+/* List and Grid Product Layouts */
 .listview-product-list {
   margin-top: 0;
+}
+.listview-product-grid {
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 18px;
 }
 .listview-product-card {
   background: #fff;
@@ -148,6 +265,13 @@
   margin-bottom: 15px;
   padding: 14px 15px 14px 18px;
   position: relative;
+}
+.listview-product-card.grid {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 13px 13px 13px 13px;
 }
 .product-img-wrap {
   min-width: 110px;
@@ -160,6 +284,18 @@
   background: #f7f8fa;
   border-radius: 7px;
   overflow: hidden;
+}
+.listview-product-card.grid .product-img-wrap {
+  margin-right: 0;
+  width: 100%;
+  height: 140px;
+  align-items: center;
+  justify-content: center;
+}
+.listview-product-card.grid .product-img-wrap img {
+  width: 120px;
+  height: auto;
+  border-radius: 7px;
 }
 .product-img-wrap img {
   width: 90px;
@@ -198,6 +334,11 @@
   gap: 13px;
   margin-bottom: 2px;
 }
+.listview-product-card.grid .product-details {
+  width: 100%;
+  gap: 5px;
+  margin-top: 7px;
+}
 .product-rating {
   color: #ffa726;
   font-weight: 500;
@@ -228,6 +369,11 @@
   position: absolute;
   top: 18px;
   right: 23px;
+}
+.listview-product-card.grid .product-fav {
+  position: absolute;
+  top: 18px;
+  right: 13px;
 }
 .fav-btn {
   background: none;
@@ -275,7 +421,6 @@
   background: #198cff;
   color: #fff;
 }
-
 /* Responsive styles */
 @media (max-width: 1100px) {
   .listview-main {
@@ -292,6 +437,10 @@
   }
   .listview-main-content {
     padding: 0;
+  }
+  .listview-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
   }
 }
 @media (max-width: 700px) {
@@ -318,5 +467,9 @@
     margin-bottom: 9px;
     width: 90px;
     height: 90px;
+  }
+  .listview-product-grid {
+    grid-template-columns: 1fr;
+    gap: 10px 8px;
   }
 }

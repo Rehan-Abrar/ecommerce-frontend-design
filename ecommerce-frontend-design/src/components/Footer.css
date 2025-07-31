@@ -120,6 +120,18 @@
   color: #198cff;
 }
 
+.social-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+.footer-social a:hover .social-icon {
+  opacity: 0.7;
+}
+
+
 /* Icon placeholders, replace with actual icons or font icons */
 .icon-facebook:before { content: "🌐"; }
 .icon-twitter:before { content: "🐦"; }

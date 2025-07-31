@@ -1,85 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ListViewPage.css";
 
-// Dummy images (replace with actual imports)
-import img1 from "../assets/item1.png";
-import img2 from "../assets/item2.png";
-import img3 from "../assets/item3.png";
-import img4 from "../assets/item4.png";
-import img5 from "../assets/item5.png";
-import img6 from "../assets/item6.png";
-
-const products = [
-  {
-    id: 1,
-    title: "Canon Camera EOS 2000, Black 10x zoom",
-    price: "$998.00",
-    oldPrice: "$1289.00",
-    img: img1,
-    rating: 7.5,
-    orders: 154,
-    shipping: "Free Shipping",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    verified: true
-  },
-  {
-    id: 2,
-    title: "GoPro HERO6 4K Action Camera - Black",
-    price: "$998.00",
-    img: img2,
-    rating: 7.5,
-    orders: 154,
-    shipping: "Free Shipping",
-    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit",
-    verified: true
-  },
-  {
-    id: 3,
-    title: "GoPro HERO6 4K Action Camera - Black",
-    price: "$998.00",
-    img: img3,
-    rating: 7.5,
-    orders: 154,
-    shipping: "Free Shipping",
-    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit",
-    verified: true
-  },
-  {
-    id: 4,
-    title: "GoPro HERO6 4K Action Camera - Black",
-    price: "$998.00",
-    img: img4,
-    rating: 7.5,
-    orders: 154,
-    shipping: "Free Shipping",
-    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit",
-    verified: true
-  },
-  {
-    id: 5,
-    title: "GoPro HERO6 4K Action Camera - Black",
-    price: "$998.00",
-    img: img5,
-    rating: 7.5,
-    orders: 154,
-    shipping: "Free Shipping",
-    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit",
-    verified: true
-  },
-  {
-    id: 6,
-    title: "GoPro HERO6 4K Action Camera - Black",
-    price: "$998.00",
-    img: img6,
-    rating: 7.5,
-    orders: 154,
-    shipping: "Free Shipping",
-    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit",
-    verified: true
-  }
-];
-
 export default function ListViewPage() {
+  const [products, setProducts] = useState([]);
+  const [viewType, setViewType] = useState("list"); // "list" or "grid"
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products?limit=12")
+      .then((res) => res.json())
+      .then((data) => {
+        const formatted = data.map((item, index) => ({
+          id: item.id,
+          title: item.title,
+          price: `$${item.price}`,
+          oldPrice: `$${(item.price * 1.25).toFixed(2)}`,
+          img: item.image,
+          rating: item.rating?.rate || 4.5,
+          orders: item.rating?.count || 100,
+          shipping: "Free Shipping",
+          desc: item.description,
+          verified: true,
+        }));
+        setProducts(formatted);
+      })
+      .catch((err) => console.error("Failed to fetch products:", err));
+  }, []);
+
+  // SVGs for list and grid view buttons (pixel-perfect, matching Image 5)
+  const ListIcon = (
+    <svg width="20" height="20" viewBox="0 0 20 20" style={{verticalAlign: 'middle'}}>
+      <rect x="3" y="4.5" width="14" height="2" rx="1" fill="currentColor"/>
+      <rect x="3" y="9" width="14" height="2" rx="1" fill="currentColor"/>
+      <rect x="3" y="13.5" width="14" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  );
+  const GridIcon = (
+    <svg width="20" height="20" viewBox="0 0 20 20" style={{verticalAlign: 'middle'}}>
+      <rect x="3" y="4" width="5" height="5" rx="1" fill="currentColor"/>
+      <rect x="12" y="4" width="5" height="5" rx="1" fill="currentColor"/>
+      <rect x="3" y="12" width="5" height="5" rx="1" fill="currentColor"/>
+      <rect x="12" y="12" width="5" height="5" rx="1" fill="currentColor"/>
+    </svg>
+  );
+
   return (
     <div className="listview-wrapper">
       <div className="listview-breadcrumb">
@@ -88,40 +51,45 @@ export default function ListViewPage() {
       <div className="listview-main">
         {/* Sidebar Filters */}
         <aside className="listview-sidebar">
-          <div className="listview-filter-section">
-            <div className="listview-filter-title">Category</div>
-            <ul>
-              <li className="active">Mobile accessory</li>
-              <li>Electronics</li>
-              <li>Smartphones</li>
-              <li>Modern tech</li>
-              <li className="seeall">See all</li>
+          {/* ...sidebar unchanged... */}
+          {/* Category */}
+          <div className="filter-section">
+            <div className="filter-heading">Category</div>
+            <ul className="filter-list">
+              <li className="filter-list-item active">Mobile accessory</li>
+              <li className="filter-list-item">Electronics</li>
+              <li className="filter-list-item">Smartphones</li>
+              <li className="filter-list-item">Modern tech</li>
+              <li className="filter-list-item seeall"><a href="#">See all</a></li>
             </ul>
           </div>
-          <div className="listview-filter-section">
-            <div className="listview-filter-title">Brands</div>
-            <ul>
-              <li><input type="checkbox" /> Samsung</li>
-              <li><input type="checkbox" /> Apple</li>
-              <li><input type="checkbox" /> Huawei</li>
-              <li><input type="checkbox" /> Poco</li>
-              <li><input type="checkbox" /> Lenovo</li>
-              <li className="seeall">See all</li>
+          {/* Brands */}
+          <div className="filter-section">
+            <div className="filter-heading bordered">Brands</div>
+            <ul className="filter-list">
+              <li className="filter-list-item"><input type="checkbox" id="samsung" /><label htmlFor="samsung"> Samsung</label></li>
+              <li className="filter-list-item"><input type="checkbox" id="apple" /><label htmlFor="apple"> Apple</label></li>
+              <li className="filter-list-item"><input type="checkbox" id="huawei" /><label htmlFor="huawei"> Huawei</label></li>
+              <li className="filter-list-item"><input type="checkbox" id="poco" /><label htmlFor="poco"> Poco</label></li>
+              <li className="filter-list-item"><input type="checkbox" id="lenovo" /><label htmlFor="lenovo"> Lenovo</label></li>
+              <li className="filter-list-item seeall"><a href="#">See all</a></li>
             </ul>
           </div>
-          <div className="listview-filter-section">
-            <div className="listview-filter-title">Features</div>
-            <ul>
-              <li><input type="checkbox" /> Metallic</li>
-              <li><input type="checkbox" /> Plastic cover</li>
-              <li><input type="checkbox" /> 8GB Ram</li>
-              <li><input type="checkbox" /> Super power</li>
-              <li><input type="checkbox" /> Long range</li>
-              <li className="seeall">See all</li>
+          {/* Features */}
+          <div className="filter-section">
+            <div className="filter-heading bordered">Features</div>
+            <ul className="filter-list">
+              <li className="filter-list-item"><input type="checkbox" id="metallic" /><label htmlFor="metallic"> Metallic</label></li>
+              <li className="filter-list-item"><input type="checkbox" id="plasticcover" /><label htmlFor="plasticcover"> Plastic cover</label></li>
+              <li className="filter-list-item"><input type="checkbox" id="8gbram" /><label htmlFor="8gbram"> 8GB Ram</label></li>
+              <li className="filter-list-item"><input type="checkbox" id="superpower" /><label htmlFor="superpower"> Super power</label></li>
+              <li className="filter-list-item"><input type="checkbox" id="largememory" /><label htmlFor="largememory"> Large Memory</label></li>
+              <li className="filter-list-item seeall"><a href="#">See all</a></li>
             </ul>
           </div>
-          <div className="listview-filter-section">
-            <div className="listview-filter-title">Price range</div>
+          {/* Price Range */}
+          <div className="filter-section">
+            <div className="filter-heading bordered">Price range</div>
             <div className="price-range">
               <input type="range" min="0" max="999999" />
               <div className="price-inputs">
@@ -132,32 +100,81 @@ export default function ListViewPage() {
               <button className="price-apply">Apply</button>
             </div>
           </div>
-          <div className="listview-filter-section">
-            <div className="listview-filter-title">Condition</div>
-            <ul>
-              <li><input type="radio" name="condition" defaultChecked /> Any</li>
-              <li><input type="radio" name="condition" /> Refurbished</li>
-              <li><input type="radio" name="condition" /> Brand new</li>
-              <li><input type="radio" name="condition" /> Old items</li>
+          {/* Condition */}
+          <div className="filter-section">
+            <div className="filter-heading bordered">Condition</div>
+            <ul className="filter-list condition-list">
+              <li className="filter-list-item">
+                <input type="radio" id="any" name="condition" defaultChecked />
+                <label htmlFor="any"> Any</label>
+              </li>
+              <li className="filter-list-item">
+                <input type="radio" id="refurbished" name="condition" />
+                <label htmlFor="refurbished"> Refurbished</label>
+              </li>
+              <li className="filter-list-item">
+                <input type="radio" id="brandnew" name="condition" />
+                <label htmlFor="brandnew"> Brand new</label>
+              </li>
+              <li className="filter-list-item">
+                <input type="radio" id="olditems" name="condition" />
+                <label htmlFor="olditems"> Old items</label>
+              </li>
             </ul>
           </div>
-          <div className="listview-filter-section">
-            <div className="listview-filter-title">Ratings</div>
-            <ul>
-              <li>
-                <span className="star-list">★★★★★</span> <input type="checkbox" />
+          {/* Ratings */}
+          <div className="filter-section">
+            <div className="filter-heading bordered">Ratings</div>
+            <ul className="filter-list ratings-list">
+              <li className="filter-list-item">
+                <input type="checkbox" id="star5" />
+                <label htmlFor="star5" className="star-label">
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                </label>
               </li>
-              <li>
-                <span className="star-list">★★★★☆</span> <input type="checkbox" />
+              <li className="filter-list-item">
+                <input type="checkbox" id="star4" />
+                <label htmlFor="star4" className="star-label">
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star gray">★</span>
+                </label>
               </li>
-              <li>
-                <span className="star-list">★★★☆☆</span> <input type="checkbox" />
+              <li className="filter-list-item">
+                <input type="checkbox" id="star3" />
+                <label htmlFor="star3" className="star-label">
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star gray">★</span>
+                  <span className="star gray">★</span>
+                </label>
               </li>
-              <li>
-                <span className="star-list">★★☆☆☆</span> <input type="checkbox" />
+              <li className="filter-list-item">
+                <input type="checkbox" id="star2" />
+                <label htmlFor="star2" className="star-label">
+                  <span className="star orange">★</span>
+                  <span className="star orange">★</span>
+                  <span className="star gray">★</span>
+                  <span className="star gray">★</span>
+                  <span className="star gray">★</span>
+                </label>
               </li>
-              <li>
-                <span className="star-list">★☆☆☆☆</span> <input type="checkbox" />
+              <li className="filter-list-item">
+                <input type="checkbox" id="star1" />
+                <label htmlFor="star1" className="star-label">
+                  <span className="star orange">★</span>
+                  <span className="star gray">★</span>
+                  <span className="star gray">★</span>
+                  <span className="star gray">★</span>
+                  <span className="star gray">★</span>
+                </label>
               </li>
             </ul>
           </div>
@@ -167,7 +184,7 @@ export default function ListViewPage() {
         <main className="listview-main-content">
           <div className="listview-topbar">
             <span>
-              <b>12,911 items in <span className="topbar-category">Mobile accessory</span></b>
+              <b>Products in <span className="topbar-category">Store</span></b>
             </span>
             <label>
               <input type="checkbox" />
@@ -179,14 +196,33 @@ export default function ListViewPage() {
               <option>Price: High to Low</option>
               <option>Newest</option>
             </select>
+            {/* View type buttons */}
             <span className="topbar-view">
-              <button className="view-btn active"><i className="icon-listview" /></button>
-              <button className="view-btn"><i className="icon-gridview" /></button>
+              <button
+                className={`view-btn${viewType === "list" ? " active" : ""}`}
+                onClick={() => setViewType("list")}
+                aria-label="List View"
+                type="button"
+              >
+                {ListIcon}
+              </button>
+              <button
+                className={`view-btn${viewType === "grid" ? " active" : ""}`}
+                onClick={() => setViewType("grid")}
+                aria-label="Grid View"
+                type="button"
+              >
+                {GridIcon}
+              </button>
             </span>
           </div>
-          <div className="listview-product-list">
+          {/* View type: controls product layout */}
+          <div className={viewType === "grid" ? "listview-product-grid" : "listview-product-list"}>
             {products.map(prod => (
-              <div key={prod.id} className="listview-product-card">
+              <div
+                key={prod.id}
+                className={viewType === "grid" ? "listview-product-card grid" : "listview-product-card"}
+              >
                 <div className="product-img-wrap">
                   <img src={prod.img} alt={prod.title} />
                 </div>
@@ -194,7 +230,7 @@ export default function ListViewPage() {
                   <div className="product-title">{prod.title}</div>
                   <div className="product-price-row">
                     <span className="product-price">{prod.price}</span>
-                    {prod.oldPrice && <span className="product-oldprice">{prod.oldPrice}</span>}
+                    <span className="product-oldprice">{prod.oldPrice}</span>
                   </div>
                   <div className="product-info-row">
                     <span className="product-rating">★ {prod.rating}</span>
