@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./ListViewPage.css";
 
 export default function ListViewPage() {
   const [products, setProducts] = useState([]);
-  const [viewType, setViewType] = useState("list"); // "list" or "grid"
+  const [viewType, setViewType] = useState("grid"); // "list" or "grid"
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products?limit=12")
@@ -18,7 +20,9 @@ export default function ListViewPage() {
           rating: item.rating?.rate || 4.5,
           orders: item.rating?.count || 100,
           shipping: "Free Shipping",
-          desc: item.description,
+          desc: item.description.length > 80 ? 
+                item.description.substring(0, 80) + "..." : 
+                item.description,
           verified: true,
         }));
         setProducts(formatted);
@@ -26,7 +30,23 @@ export default function ListViewPage() {
       .catch((err) => console.error("Failed to fetch products:", err));
   }, []);
 
-  // SVGs for list and grid view buttons (pixel-perfect, matching Image 5)
+  const renderStars = (rating) => {
+    const fullStars = Math.floor(rating);
+    const stars = "★".repeat(fullStars) + "☆".repeat(5 - fullStars);
+    return <span className="product-rating-stars">{stars}</span>;
+  };
+
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`);
+  };
+
+  const handleFavoriteClick = (e, id) => {
+    e.stopPropagation(); // Prevent navigation when clicking favorite button
+    // Add your favorite functionality here
+    console.log(`Added product ${id} to favorites`);
+  };
+
+  // SVGs for list and grid view buttons
   const ListIcon = (
     <svg width="20" height="20" viewBox="0 0 20 20" style={{verticalAlign: 'middle'}}>
       <rect x="3" y="4.5" width="14" height="2" rx="1" fill="currentColor"/>
@@ -51,7 +71,6 @@ export default function ListViewPage() {
       <div className="listview-main">
         {/* Sidebar Filters */}
         <aside className="listview-sidebar">
-          {/* ...sidebar unchanged... */}
           {/* Category */}
           <div className="filter-section">
             <div className="filter-heading">Category</div>
@@ -179,7 +198,6 @@ export default function ListViewPage() {
             </ul>
           </div>
         </aside>
-
         {/* Main List */}
         <main className="listview-main-content">
           <div className="listview-topbar">
@@ -222,26 +240,32 @@ export default function ListViewPage() {
               <div
                 key={prod.id}
                 className={viewType === "grid" ? "listview-product-card grid" : "listview-product-card"}
+                onClick={() => handleProductClick(prod.id)}
+                style={{ cursor: 'pointer' }}
               >
                 <div className="product-img-wrap">
                   <img src={prod.img} alt={prod.title} />
                 </div>
                 <div className="product-details">
-                  <div className="product-title">{prod.title}</div>
                   <div className="product-price-row">
                     <span className="product-price">{prod.price}</span>
                     <span className="product-oldprice">{prod.oldPrice}</span>
                   </div>
                   <div className="product-info-row">
-                    <span className="product-rating">★ {prod.rating}</span>
+                    <span className="product-rating">
+                      {renderStars(prod.rating)} {prod.rating}
+                    </span>
                     <span className="product-orders">{prod.orders} orders</span>
                     <span className="product-shipping">{prod.shipping}</span>
                   </div>
-                  <div className="product-desc">{prod.desc}</div>
-                  <a href="#" className="product-details-link">View details</a>
+                  <div className="product-title">{prod.title}</div>
+                  {/* Removed the "View details" link since the whole card is now clickable */}
                 </div>
                 <div className="product-fav">
-                  <button className="fav-btn"><i className="icon-heart" /></button>
+                  <button 
+                    className="fav-btn" 
+                    onClick={(e) => handleFavoriteClick(e, prod.id)}
+                  >♡</button>
                 </div>
               </div>
             ))}

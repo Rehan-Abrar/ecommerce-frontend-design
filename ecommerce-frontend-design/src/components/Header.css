@@ -40,4 +40,25 @@
 .header__icon {
   font-size: 18px;
   cursor: pointer;
+  position: relative;
+}
+
+.header__cart-icon {
+  display: inline-block;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #DB4444;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

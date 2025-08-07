@@ -9,7 +9,9 @@ import ProductSection from './components/ProductSection';
 import RequestBanner from './components/RequestBanner';
 import RecommendedSection from './components/RecommendedSection';
 // Other pages
-import ListViewPage from './pages/ListViewPage'; // <-- Your new ListView page
+import ListViewPage from './pages/ListViewPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import CartPage, { CartProvider } from "./pages/CartPage";
 
 function HomePage() {
   // Your old main page grouped as a component
@@ -25,18 +27,23 @@ function HomePage() {
 
 function App() {
   return (
-    <div className="app-wrapper">
-      <Router>
-        <Header />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/listview" element={<ListViewPage />} />
-          {/* Add more routes here as needed */}
-        </Routes>
-        <Footer />
-      </Router>
-    </div>
+      <CartProvider>
+        <Router>
+          <Header />
+          <Navbar />
+              <div className="app-wrapper">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/listview" element={<ListViewPage />} />
+            <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            {/* Add more routes here as needed */}
+          </Routes>
+          </div>
+          <Footer />
+        </Router>
+      </CartProvider>
+    
   );
 }
 

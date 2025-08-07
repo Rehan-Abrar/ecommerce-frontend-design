@@ -52,14 +52,28 @@ function CategoryCard({ title, button, image, bgClass }) {
   );
 }
 
-function ProductGrid({ products }) {
+function ProductGrid({ products, categoryName }) {
+  // Define category labels for each product type
+  const getCategoryLabel = (product, index) => {
+    if (categoryName === 'home') {
+      const homeLabels = ['Soft chairs', 'Sofa & chair', 'Kitchen dishes', 'Smart watches', 'Kitchen mixer', 'Blenders', 'Home appliance', 'Coffee maker'];
+      return homeLabels[index] || 'Home item';
+    } else {
+      const electronicLabels = ['Smart watches', 'Cameras', 'Headphones', 'Smart watches', 'Gaming set', 'Laptops & PC', 'Smartphones', 'Electric kettle'];
+      return electronicLabels[index] || 'Electronic item';
+    }
+  };
+
   return (
     <div className="category-products">
       {products.map((p, i) => (
         <div className="category-product" key={i}>
-          <img src={p.image} alt={p.title} />
-          <div className="category-product-title">{p.title}</div>
-          <div className="category-product-price">From USD {p.price}</div>
+          <a href={`/product/${p.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <img src={p.image} alt={p.title} />
+            <div className="category-label">{getCategoryLabel(p, i)}</div>
+            <div className="category-product-title">{p.title}</div>
+            <div className="category-product-price">USD {p.price}</div>
+          </a>
         </div>
       ))}
     </div>
@@ -105,26 +119,30 @@ export default function ProductSection() {
         </div>
       </div>
 
-      {/* Home and Outdoor row */}
-      <div className="category-row">
-        <CategoryCard
-          title="Home and outdoor"
-          button="Source now"
-          image={Home}
-          bgClass="home"
-        />
-        <ProductGrid products={homeProducts} />
+      {/* Home and Outdoor section - WRAPPED IN category-block */}
+      <div className="category-block">
+        <div className="category-row">
+          <CategoryCard
+            title="Home and outdoor"
+            button="Source now"
+            image={Home}
+            bgClass="home"
+          />
+          <ProductGrid products={homeProducts} categoryName="home" />
+        </div>
       </div>
 
-      {/* Electronics & Gadgets row */}
-      <div className="category-row">
-        <CategoryCard
-          title="Consumer electronics and gadgets"
-          button="Source now"
-          image={Consumer}
-          bgClass="gadgets"
-        />
-        <ProductGrid products={electronicsProducts} />
+      {/* Electronics & Gadgets section - WRAPPED IN category-block */}
+      <div className="category-block">
+        <div className="category-row">
+          <CategoryCard
+            title="Consumer electronics and gadgets"
+            button="Source now"
+            image={Consumer}
+            bgClass="gadgets"
+          />
+          <ProductGrid products={electronicsProducts} categoryName="electronics" />
+        </div>
       </div>
     </div>
   );
