@@ -6,8 +6,8 @@ import linkedinIcon from "../assets/In.png";
 import React from "react";
 import "./Footer.css";
 
-import appStore from "../assets/appstore.png";
-import googlePlay from "../assets/googleplay.png";
+import appStore from "../assets/AppStore.png";
+import googlePlay from "../assets/GooglePlay.png";
 // Removed flagUs import!
 
 export default function Footer() {
